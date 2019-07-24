@@ -5,12 +5,18 @@ import "./Burger.css";
 
 const Burger = (props) => {
 
-  const arrayIngredients = Object.keys(props.ingredients)
+  let arrayIngredients = Object.keys(props.ingredients)
     .map(ingredientkey => {
       return [...Array(props.ingredients[ingredientkey])].map((_, i) => {
         return  <BurgerIngredient key={ingredientkey + i} type={ingredientkey} />
       });
-  });
+  }).reduce((arr, el) => {
+    return arr.concat(el)
+  }, []);
+
+  if(arrayIngredients.length === 0) {
+      arrayIngredients = <p>Please add Ingredients!</p>;
+  }
 
   return (
     <div className="burger">
